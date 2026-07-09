@@ -1,478 +1,506 @@
-1|<!DOCTYPE html>
-2|<html>
-3|<head>
-4|<meta charset="utf-8">
-5|<meta name="viewport" content="width=device-width, initial-scale=1">
-6|<script src="./support.js"></script>
-7|</head>
-8|<body>
-9|<x-dc>
-10|<helmet>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
 <meta name="robots" content="noindex,nofollow">
-11|<link rel="preconnect" href="https://fonts.googleapis.com">
-12|<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-13|<script src="./image-slot.js"></script>
-14|<style>
-15|  body { margin:0; background:#F7F8FA; overflow-x:clip; }
-16|  html { scroll-behavior:smooth; }
-17|  [id] { scroll-margin-top:88px; }
-18|  /* Mobile: collapse nav links (phone + CTA remain) */
-19|  @media (max-width: 1020px) {
-20|    [data-nav-links] { display:none !important; }
-21|  }
-22|  @media (max-width: 620px) {
-23|    [data-nav-cta] { display:none !important; }
-24|  }
-25|  /* Accessibility: honor reduced-motion preference */
-26|  @media (prefers-reduced-motion: reduce) {
-27|    * { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-28|    [data-anim="true"] [data-reveal] { opacity:1 !important; transform:none !important; }
-29|  }
-30|  a { color:#1B4A8A; }
-31|  a:hover { color:#143A6E; }
-32|  /* ---- TEMPLATE PLACEHOLDER HIGHLIGHTING ----
-33|     Every element with must be swapped for the real company.
-34|     Remove the data-ph attribute once swapped, or use the
-35|     "Hide placeholder highlights" tweak to preview the final look. */
-36|  [data-ph] { outline:2px dashed #FF00D4; outline-offset:4px; position:relative; }
-37|  [data-ph]::before { content:attr(data-ph); position:absolute; top:-22px; left:0; font-family:'IBM Plex Mono',monospace; font-size:10px; line-height:1; background:#FF00D4; color:#fff; padding:3px 6px; border-radius:3px; z-index:40; white-space:nowrap; }
-38|  [data-ph-hide="true"] [data-ph] { outline:none; }
-39|  [data-ph-hide="true"] [data-ph]::before { display:none; }
-40|  /* ---- scroll reveal (JS flips data-reveal to "on") ---- */
-41|  [data-reveal] { transition:opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1); }
-42|  [data-anim="true"] [data-reveal] { opacity:0; transform:translateY(26px); }
-43|  [data-anim="true"] [data-reveal][data-reveal-dir="left"] { transform:translateX(-30px); }
-44|  [data-anim="true"] [data-reveal][data-reveal-dir="right"] { transform:translateX(30px); }
-45|  [data-anim="true"] [data-reveal="on"], [data-anim="true"] [data-reveal="on"][data-reveal-dir] { opacity:1; transform:none; }
-46|  /* nav shadow fades in once scrolled */
-47|  [data-navbar] { transition:box-shadow .35s ease; }
-48|  [data-navbar][data-scrolled="true"] { box-shadow:0 6px 24px rgba(21,34,56,.09); }
-49|  @keyframes blobDrift { from { transform:translate(0,0) scale(1); } to { transform:translate(60px,-40px) scale(1.12); } }
-50|  @keyframes faqIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
-51|  details[open] .faq-a { animation:faqIn .35s ease both; }
-52|  @keyframes heroPop { from { opacity:0; transform:translateY(22px);} to { opacity:1; transform:none;} }
-53|  @keyframes tracePulse { 0%,100% { opacity:.35; } 50% { opacity:1; } }
-54|  @keyframes pinPing { 0% { transform:scale(1); opacity:.5; } 100% { transform:scale(2.8); opacity:0; } }
-55|  details > summary { list-style:none; cursor:pointer; }
-56|  details > summary::-webkit-details-marker { display:none; }
-57|  details[open] .faq-chev { transform:rotate(45deg); }
-58|  .faq-chev { transition:transform .3s ease; display:inline-block; }
-59|</style>
-60|</helmet>
-61|
-62|<div ref="{{ rootRef }}" data-ph-hide="{{ phHide }}" data-anim="{{ animOn }}" style="background:#F7F8FA; color:#152238; font-family:'Manrope',sans-serif; -webkit-font-smoothing:antialiased;">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#F7F8FA; overflow-x:clip; }
+  html { scroll-behavior:smooth; }
+  [id] { scroll-margin-top:88px; }
+  /* Mobile: collapse nav links (phone + CTA remain) */
+  @media (max-width: 1020px) {
+    [data-nav-links] { display:none !important; }
+  }
+  @media (max-width: 620px) {
+    [data-nav-cta] { display:none !important; }
+  }
+  /* Accessibility: honor reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    [data-anim="true"] [data-reveal] { opacity:1 !important; transform:none !important; }
+  }
+  a { color:#1B4A8A; }
+  a:hover { color:#143A6E; }
+  /* ---- TEMPLATE PLACEHOLDER HIGHLIGHTING ----
+     Every element with must be swapped for the real company.
+     Remove the data-ph attribute once swapped, or use the
+     "Hide placeholder highlights" tweak to preview the final look. */
+  [data-ph] { outline:2px dashed #FF00D4; outline-offset:4px; position:relative; }
+  [data-ph]::before { content:attr(data-ph); position:absolute; top:-22px; left:0; font-family:'IBM Plex Mono',monospace; font-size:10px; line-height:1; background:#FF00D4; color:#fff; padding:3px 6px; border-radius:3px; z-index:40; white-space:nowrap; }
+  [data-ph-hide="true"] [data-ph] { outline:none; }
+  [data-ph-hide="true"] [data-ph]::before { display:none; }
+  /* ---- scroll reveal (JS flips data-reveal to "on") ---- */
+  [data-reveal] { transition:opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1); }
+  [data-anim="true"] [data-reveal] { opacity:0; transform:translateY(26px); }
+  [data-anim="true"] [data-reveal][data-reveal-dir="left"] { transform:translateX(-30px); }
+  [data-anim="true"] [data-reveal][data-reveal-dir="right"] { transform:translateX(30px); }
+  [data-anim="true"] [data-reveal="on"], [data-anim="true"] [data-reveal="on"][data-reveal-dir] { opacity:1; transform:none; }
+  /* nav shadow fades in once scrolled */
+  [data-navbar] { transition:box-shadow .35s ease; }
+  [data-navbar][data-scrolled="true"] { box-shadow:0 6px 24px rgba(21,34,56,.09); }
+  @keyframes blobDrift { from { transform:translate(0,0) scale(1); } to { transform:translate(60px,-40px) scale(1.12); } }
+  @keyframes faqIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+  details[open] .faq-a { animation:faqIn .35s ease both; }
+  @keyframes heroPop { from { opacity:0; transform:translateY(22px);} to { opacity:1; transform:none;} }
+  @keyframes tracePulse { 0%,100% { opacity:.35; } 50% { opacity:1; } }
+  @keyframes pinPing { 0% { transform:scale(1); opacity:.5; } 100% { transform:scale(2.8); opacity:0; } }
+  details > summary { list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker { display:none; }
+  details[open] .faq-chev { transform:rotate(45deg); }
+  .faq-chev { transition:transform .3s ease; display:inline-block; }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" data-ph-hide="{{ phHide }}" data-anim="{{ animOn }}" style="background:#F7F8FA; color:#152238; font-family:'Manrope',sans-serif; -webkit-font-smoothing:antialiased;">
   <div style="position:sticky; top:0; z-index:60; background:#152238; color:#fff; text-align:center; padding:9px 16px; font-family:'Manrope',sans-serif; font-size:13.5px; font-weight:600;">Draft preview built for Reed Electrical — goes live on your own domain within 24h of approval. Preview expires Thursday 16 July.</div>
-63|
-64|  <!-- ================= NAV ================= -->
-65|  <div data-screen-label="Nav" data-navbar style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(12px); border-bottom:1px solid #E4E8EF;">
-66|    <div style="max-width:1240px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px clamp(16px,3vw,32px);">
-67|      <div style="display:flex; align-items:center; gap:12px;">
-68|        <div style="width:38px; height:38px; border-radius:10px; background:#1B4A8A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Sora',sans-serif; font-weight:800; font-size:17px;">R</div>
-69|        <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px;">Reed Electrical</span>
-70|      </div>
-71|      <div data-nav-links style="display:flex; gap:30px; font-size:15px; font-weight:600;">
-72|        <a href="#services" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">Services</a>
-73|        <a href="#about" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">About</a>
-74|        <a href="#reviews" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">Reviews</a>
-75|        <a href="#areas" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">Areas</a>
-76|        <a href="#faq" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">FAQ</a>
-77|      </div>
-78|      <div style="display:flex; align-items:center; gap:18px;">
-79|        <a href="tel:07818064688" style="font-weight:800; font-size:15px; color:#1B4A8A; text-decoration:none;">07818 064688</a>
-80|        <a data-nav-cta href="#contact" style="background:#F5A623; color:#152238; font-weight:700; padding:12px 22px; border-radius:10px; font-size:15px; text-decoration:none; display:inline-block; white-space:nowrap;" style-hover="background:#E79A15;">Book an electrician</a>
-81|      </div>
-82|    </div>
-83|  </div>
-84|
-91|
-92|  <!-- ================= HERO ================= -->
-93|  <div data-screen-label="Hero" style="position:relative; isolation:isolate; max-width:1240px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center; padding:clamp(64px,9vw,96px) 24px clamp(72px,10vw,104px);">
-94|    <div style="position:absolute; z-index:-1; left:8%; top:6%; width:440px; height:440px; max-width:70vw; border-radius:50%; background:radial-gradient(circle, rgba(27,74,138,.09), transparent 65%); animation:blobDrift 16s ease-in-out infinite alternate; pointer-events:none;"></div>
-95|    <div style="position:absolute; z-index:-1; right:6%; bottom:0; width:380px; height:380px; max-width:60vw; border-radius:50%; background:radial-gradient(circle, rgba(245,166,35,.10), transparent 65%); animation:blobDrift 13s ease-in-out 1.5s infinite alternate-reverse; pointer-events:none;"></div>
-96|    <div style="display:inline-flex; align-items:center; gap:8px; background:#E8F0FB; color:#1B4A8A; font-weight:700; font-size:13px; padding:7px 14px; border-radius:999px; margin-bottom:26px; animation:heroPop .7s ease both;"><span>4.9 rated · 40+ local reviews</span> · <span>Aldershot</span></div>
-97|    <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,7vw,64px); line-height:1.08; letter-spacing:-.02em; margin:0 0 24px; max-width:880px; animation:heroPop .7s ease .08s both;"><span>Trusted electricians in Aldershot</span></h1>
-98|    <p style="font-size:20px; line-height:1.6; color:#4A5A72; margin:0 0 36px; max-width:620px; animation:heroPop .7s ease .16s both;"><span>Upfront pricing, tidy work and every job guaranteed — your local Aldershot electrician, serving the area for over 20 years.</span></p>
-99|    <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center; animation:heroPop .7s ease .24s both;">
-100|      <a href="#contact" style="background:#1B4A8A; color:#fff; font-weight:700; font-size:17px; padding:16px 30px; border-radius:12px; text-decoration:none; display:inline-block; box-shadow:0 8px 20px rgba(27,74,138,.25); transition:transform .25s ease, background .25s ease;" style-hover="background:#143A6E; transform:translateY(-2px);">Get a free quote</a>
-101|      <a href="#services" style="border:2px solid #D5DCE7; color:#152238; font-weight:700; font-size:17px; padding:14px 28px; border-radius:12px; text-decoration:none; display:inline-block; transition:border-color .25s ease;" style-hover="border-color:#1B4A8A;">See services</a>
-102|    </div>
-103|    <div style="display:flex; flex-wrap:wrap; gap:14px 28px; margin-top:40px; font-size:13.5px; font-weight:700; color:#4A5A72; justify-content:center; animation:heroPop .7s ease .32s both;">
-104|      <span style="display:flex; align-items:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#F5A623; display:inline-block;"></span>NICEIC approved &amp; fully insured</span>
-105|      <span style="display:flex; align-items:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#F5A623; display:inline-block;"></span>Same-week booking</span>
-106|      <span style="display:flex; align-items:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#F5A623; display:inline-block;"></span>Workmanship guaranteed on every job</span>
-107|    </div>
-108|  </div>
-109|
-110|  <!-- ================= CERTIFICATIONS STRIP ================= -->
-111|  <div data-screen-label="Certifications" style="background:#fff; border-top:1px solid #E4E8EF; border-bottom:1px solid #E4E8EF;">
-112|    <div data-reveal style="max-width:1240px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 32px; padding:28px 24px;">
-113|      <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#8A97AB; flex-shrink:0;">Certified &amp; accredited</span>
-114|      <div style="display:flex; flex-wrap:wrap; gap:14px 20px; flex:1; justify-content:flex-end;">
-115|        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-width:150px; height:56px; border-radius:8px; background:#F0F3F8; padding:0 18px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px rgba(21,34,56,.08);">
-116|          <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:14px;">NICEIC</span>
-117|          <span style="font-size:10.5px; font-weight:700; color:#6B7A92; letter-spacing:.05em; text-transform:uppercase;">Approved Contractor</span>
-118|        </div>
-123|        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-width:150px; height:56px; border-radius:8px; background:#F0F3F8; padding:0 18px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px rgba(21,34,56,.08);">
-124|          <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:14px;">Part P</span>
-125|          <span style="font-size:10.5px; font-weight:700; color:#6B7A92; letter-spacing:.05em; text-transform:uppercase;">Building Regs Certified</span>
-126|        </div>
-131|      </div>
-132|    </div>
-133|  </div>
-134|
-135|  <!-- ================= SERVICES ================= -->
-136|  <div id="services" data-screen-label="Services" style="max-width:1240px; margin:0 auto; padding:clamp(64px,9vw,96px) 24px;">
-137|    <div data-reveal style="max-width:640px; margin-bottom:48px;">
-138|      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Services</div>
-139|      <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); line-height:1.15; letter-spacing:-.02em; margin:0 0 16px; text-wrap:pretty;">Everything electrical, done right</h2>
-140|      <p style="font-size:17px; line-height:1.6; color:#4A5A72; margin:0;"><span>From a single socket to a full commercial fit-out — one team, one point of contact.</span></p>
-141|    </div>
-142|    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px;">
-143|      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
-144|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">01</div>
-145|        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Rewiring &amp; upgrades</span></div>
-146|        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Full and partial rewires, consumer unit upgrades, fault-finding and repairs.</span></div>
-147|      </div>
-148|      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
-149|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">02</div>
-150|        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>EV charger installation</span></div>
-151|        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Home and workplace charging points, installed and certified to spec.</span></div>
-152|      </div>
-153|      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
-154|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">03</div>
-155|        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Lighting &amp; installations</span></div>
-156|        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Indoor, outdoor and smart lighting — planned, wired and finished cleanly.</span></div>
-157|      </div>
-158|      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
-159|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">04</div>
-160|        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Extensions &amp; renovation wiring</span></div>
-161|        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Safe, compliant wiring for home extensions, lofts and renovations, integrated with your existing setup.</span></div>
-162|      </div>
-163|      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
-164|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">05</div>
-165|        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Consumer units &amp; fault finding</span></div>
-166|        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Consumer unit installation, repair and replacement, plus fast fault diagnosis and fixes.</span></div>
-167|      </div>
-173|    </div>
-174|  </div>
-175|
-176|  <!-- ================= STATS BAND ================= -->
-177|  <div data-screen-label="Stats" style="background:#1B4A8A; color:#fff;">
-178|    <div data-reveal style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:32px; padding:64px 24px;">
-179|      <div style="text-align:center;">
-180|        <div data-count-to="20" data-suffix="+" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">20+</div>
-181|        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Years in business</div>
-182|      </div>
-183|      <div style="text-align:center;">
-184|        <div data-count-to="1200" data-suffix="+" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">1,200+</div>
-185|        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Jobs completed</div>
-186|      </div>
-187|      <div style="text-align:center;">
-188|        <div data-count-to="95" data-suffix="%" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">95%</div>
-189|        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Repeat &amp; referral clients</div>
-190|      </div>
-191|      <div style="text-align:center;">
-192|        <div data-count-to="3" data-suffix="" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">3</div>
-193|        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Qualified electricians</div>
-194|      </div>
-195|    </div>
-196|  </div>
-197|
-198|  <!-- ================= ABOUT / WHY US ================= -->
-199|  <div id="about" data-screen-label="About" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(36px,5vw,64px); padding:clamp(64px,9vw,96px) 24px; align-items:center;">
-200|    <div data-reveal data-reveal-dir="left" style="border-radius:20px;">
-201|      <image-slot id="about-image" shape="rounded" radius="20" placeholder="Your team photo goes here when the site goes live" style="width:100%; height:430px;"></image-slot>
-202|    </div>
-203|    <div data-reveal data-reveal-dir="right">
-204|      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Why choose us</div>
-205|      <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); line-height:1.15; letter-spacing:-.02em; margin:0 0 18px;"><span>A local team you can rely on</span></h2>
-206|      <p style="font-size:17px; line-height:1.65; color:#4A5A72; margin:0 0 28px;"><span>Reed Electrical is a family-run electrical contractor based in Aldershot. For over 20 years we have built our reputation on tidy workmanship, honest pricing and turning up when we say we will.</span></p>
-207|      <div style="display:flex; flex-direction:column; gap:18px;">
-208|        <div style="display:flex; gap:14px; align-items:flex-start;">
-209|          <div style="width:8px; height:8px; border-radius:50%; background:#F5A623; margin-top:7px; flex-shrink:0;"></div>
-210|          <div><strong style="font-size:15.5px;">Upfront, fixed quotes</strong><div style="font-size:14.5px; color:#4A5A72; margin-top:2px;">No hourly surprises — you approve the price before we start.</div></div>
-211|        </div>
-212|        <div style="display:flex; gap:14px; align-items:flex-start;">
-213|          <div style="width:8px; height:8px; border-radius:50%; background:#F5A623; margin-top:7px; flex-shrink:0;"></div>
-214|          <div><strong style="font-size:15.5px;">Fully qualified &amp; insured</strong><div style="font-size:14.5px; color:#4A5A72; margin-top:2px;">Every job notified and certified under Part P. NICEIC reg. <span>D602137</span>.</div></div>
-215|        </div>
-216|        <div style="display:flex; gap:14px; align-items:flex-start;">
-217|          <div style="width:8px; height:8px; border-radius:50%; background:#F5A623; margin-top:7px; flex-shrink:0;"></div>
-218|          <div><strong style="font-size:15.5px;">We leave it cleaner than we found it</strong><div style="font-size:14.5px; color:#4A5A72; margin-top:2px;">Dust sheets, tidy cable runs, and a walkthrough before we leave.</div></div>
-219|        </div>
-220|      </div>
-221|    </div>
-222|  </div>
-223|
-224|  <!-- ================= TESTIMONIALS ================= -->
-225|  <div id="reviews" data-screen-label="Testimonials" style="background:#fff; border-top:1px solid #E4E8EF; border-bottom:1px solid #E4E8EF;">
-226|    <div style="max-width:1240px; margin:0 auto; padding:clamp(64px,9vw,96px) 24px;">
-227|      <div data-reveal style="text-align:center; margin-bottom:48px;">
-228|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Reviews</div>
-229|        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); letter-spacing:-.02em; margin:0;">What neighbours say</h2>
-230|      </div>
-231|      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px;">
-232|        <div data-reveal style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:16px; padding:28px;">
-233|          <div style="font-family:'IBM Plex Mono',monospace; color:#F5A623; font-size:13px; font-weight:700; margin-bottom:14px;">5.0 / 5</div>
-234|          <p style="font-size:15.5px; line-height:1.65; color:#152238; margin:0 0 20px;">"Reed Electrical rewired our 1930s semi in Ash over a week — tidy, polite, and the price matched the quote exactly."</p>
-235|          <div style="font-weight:700; font-size:14px;">Sarah P.</div>
-236|          <div style="font-size:13px; color:#8A97AB;">Ash, Aldershot</div>
-237|        </div>
-238|        <div data-reveal style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:16px; padding:28px;">
-239|          <div style="font-family:'IBM Plex Mono',monospace; color:#F5A623; font-size:13px; font-weight:700; margin-bottom:14px;">5.0 / 5</div>
-240|          <p style="font-size:15.5px; line-height:1.65; color:#152238; margin:0 0 20px;">"Fitted our home EV charger in Farnborough. Explained everything clearly and left no mess. Would use again."</p>
-241|          <div style="font-weight:700; font-size:14px;">James T.</div>
-242|          <div style="font-size:13px; color:#8A97AB;">Farnborough</div>
-243|        </div>
-244|        <div data-reveal style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:16px; padding:28px;">
-245|          <div style="font-family:'IBM Plex Mono',monospace; color:#F5A623; font-size:13px; font-weight:700; margin-bottom:14px;">5.0 / 5</div>
-246|          <p style="font-size:15.5px; line-height:1.65; color:#152238; margin:0 0 20px;">"Sorted a consumer-unit fault in our shop before we opened. Fast, professional and fairly priced."</p>
-247|          <div style="font-weight:700; font-size:14px;">Mo R.</div>
-248|          <div style="font-size:13px; color:#8A97AB;">Aldershot</div>
-249|        </div>
-250|      </div>
-251|    </div>
-252|  </div>
-253|
-254|  <!-- ================= SERVICE AREA ================= -->
-255|  <div id="areas" data-screen-label="Service area" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(36px,5vw,64px); padding:clamp(64px,9vw,96px) 24px; align-items:center;">
-256|    <div data-reveal data-reveal-dir="left">
-257|      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Coverage</div>
-258|      <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); line-height:1.15; letter-spacing:-.02em; margin:0 0 18px;">Serving <span>Aldershot</span> and surrounds</h2>
-259|      <p style="font-size:17px; line-height:1.65; color:#4A5A72; margin:0 0 28px;">Standard call-outs within <span>20 miles</span> of our base — no travel charge inside the core area.</p>
-260|      <div style="display:flex; flex-direction:column; gap:14px;">
-261|        <div style="display:flex; gap:12px; align-items:center;">
-262|          <span style="width:16px; height:16px; border-radius:50%; border:2px dashed #F5A623; flex-shrink:0;"></span>
-263|          <span style="font-size:15px; font-weight:600;">Core area — free call-outs, no travel charge</span>
-264|        </div>
-265|        <div style="display:flex; gap:12px; align-items:center;">
-266|          <span style="width:16px; height:16px; border-radius:50%; border:2px dashed #1B4A8A; flex-shrink:0;"></span>
-267|          <span style="font-size:15px; font-weight:600;">Extended area — standard call-out rates</span>
-268|        </div>
-269|      </div>
-270|    </div>
-271|    <div data-reveal data-reveal-dir="right" style="position:relative; height:420px; border-radius:20px; background:#E8F0FB; background-image:radial-gradient(#C9D6E8 2px, transparent 2px); background-size:36px 36px; overflow:hidden;">
-272|      <div style="position:absolute; left:50%; top:50%; width:360px; height:360px; transform:translate(-50%,-50%); border:2px dashed #1B4A8A; border-radius:50%; opacity:.35;"></div>
-273|      <div style="position:absolute; left:50%; top:50%; width:200px; height:200px; transform:translate(-50%,-50%); border:2px dashed #F5A623; border-radius:50%; opacity:.55;"></div>
-274|      <!-- HQ pin -->
-275|      <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:8px; z-index:2;">
-276|        <div style="position:relative; width:18px; height:18px;">
-277|          <div style="position:absolute; inset:0; border-radius:50%; background:#1B4A8A; animation:pinPing 2.6s ease-out infinite;"></div>
-278|          <div style="position:absolute; inset:0; border-radius:50%; background:#1B4A8A; border:3px solid #fff; box-sizing:border-box;"></div>
-279|        </div>
-280|        <div style="background:#152238; color:#fff; padding:5px 12px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap;">HQ · <span>Aldershot</span></div>
-281|      </div>
-282|      <!-- Town pins — swap the [TOWN_x] labels; reposition via left/top percentages -->
-283|      <div style="position:absolute; left:17%; top:18%; display:flex; flex-direction:column; align-items:center; gap:6px;">
-284|        <div style="position:relative; width:12px; height:12px;">
-285|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out .4s infinite;"></div>
-286|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
-287|        </div>
-288|        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Farnborough</span>
-289|      </div>
-290|      <div style="position:absolute; left:66%; top:12%; display:flex; flex-direction:column; align-items:center; gap:6px;">
-291|        <div style="position:relative; width:12px; height:12px;">
-292|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out .8s infinite;"></div>
-293|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
-294|        </div>
-295|        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Fleet</span>
-296|      </div>
-297|      <div style="position:absolute; left:76%; top:56%; display:flex; flex-direction:column; align-items:center; gap:6px;">
-298|        <div style="position:relative; width:12px; height:12px;">
-299|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out 1.2s infinite;"></div>
-300|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
-301|        </div>
-302|        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Farnham</span>
-303|      </div>
-304|      <div style="position:absolute; left:16%; top:62%; display:flex; flex-direction:column; align-items:center; gap:6px;">
-305|        <div style="position:relative; width:12px; height:12px;">
-306|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out 1.6s infinite;"></div>
-307|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
-308|        </div>
-309|        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Camberley</span>
-310|      </div>
-311|      <div style="position:absolute; left:48%; top:78%; display:flex; flex-direction:column; align-items:center; gap:6px;">
-312|        <div style="position:relative; width:12px; height:12px;">
-313|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out 2s infinite;"></div>
-314|          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
-315|        </div>
-316|        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Guildford</span>
-317|      </div>
-318|    </div>
-319|  </div>
-320|
-321|  <!-- ================= FAQ ================= -->
-322|  <div id="faq" data-screen-label="FAQ" style="background:#fff; border-top:1px solid #E4E8EF;">
-323|    <div style="max-width:840px; margin:0 auto; padding:clamp(64px,9vw,96px) 24px;">
-324|      <div data-reveal style="text-align:center; margin-bottom:44px;">
-325|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">FAQ</div>
-326|        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); letter-spacing:-.02em; margin:0;">Common questions</h2>
-327|      </div>
-328|      <div data-reveal style="display:flex; flex-direction:column; gap:12px;">
-329|        <details style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:14px; padding:20px 24px;">
-330|          <summary style="display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Do you charge for quotes?<span class="faq-chev" style="color:#1B4A8A; font-size:20px; font-weight:400;">+</span></summary>
-331|          <p class="faq-a" style="font-size:15.5px; line-height:1.6; color:#4A5A72; margin:14px 0 0;"><span>No — quotes and site visits are free within our 20-mile service area, with no obligation.</span></p>
-332|        </details>
-333|        <details style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:14px; padding:20px 24px;">
-334|          <summary style="display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Are you registered and insured?<span class="faq-chev" style="color:#1B4A8A; font-size:20px; font-weight:400;">+</span></summary>
-335|          <p class="faq-a" style="font-size:15.5px; line-height:1.6; color:#4A5A72; margin:14px 0 0;"><span>Yes — NICEIC Approved Contractor (reg. D602137), Part P certified, with £5m public liability insurance.</span></p>
-336|        </details>
-341|        <details style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:14px; padding:20px 24px;">
-342|          <summary style="display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Is your work guaranteed?<span class="faq-chev" style="color:#1B4A8A; font-size:20px; font-weight:400;">+</span></summary>
-343|          <p class="faq-a" style="font-size:15.5px; line-height:1.6; color:#4A5A72; margin:14px 0 0;"><span>Yes — every installation carries our workmanship guarantee on top of manufacturer warranties.</span></p>
-344|        </details>
-345|      </div>
-346|    </div>
-347|  </div>
-348|
-349|  <!-- ================= CONTACT / CTA ================= -->
-350|  <div id="contact" data-screen-label="Contact" style="background:#152238; color:#fff;">
-351|    <div style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(40px,6vw,72px); padding:clamp(64px,9vw,96px) 24px;">
-352|      <div data-reveal>
-353|        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#F5A623; margin-bottom:14px;">Get in touch</div>
-354|        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(32px,5vw,44px); line-height:1.12; letter-spacing:-.02em; margin:0 0 18px;">Tell us about the job — we'll quote it free</h2>
-355|        <p style="font-size:17px; line-height:1.65; color:#B9C4D6; margin:0 0 36px;">We reply within one working day. For emergencies, always call.</p>
-356|        <div style="display:flex; flex-direction:column; gap:22px; font-size:16px;">
-357|          <div style="display:flex; gap:16px; align-items:baseline;">
-358|            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Call</span>
-359|            <a href="tel:07818064688" style="color:#F5A623; font-weight:800; font-size:20px; text-decoration:none;">07818 064688</a>
-360|          </div>
-361|          <div style="display:flex; gap:16px; align-items:baseline;">
-362|            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Email</span>
-363|            <a href="mailto:mail@reedelectrical.info" style="color:#fff; font-weight:600; text-decoration:none;">mail@reedelectrical.info</a>
-364|          </div>
-365|          <div style="display:flex; gap:16px; align-items:baseline;">
-366|            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Visit</span>
-367|            <span style="color:#fff; font-weight:600;">9 Grange Farm Rd, Ash, Aldershot GU12 6SJ</span>
-368|          </div>
-369|          <div style="display:flex; gap:16px; align-items:baseline;">
-370|            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Hours</span>
-371|            <span style="color:#fff; font-weight:600;">Mon–Fri 9:00–17:00</span>
-372|          </div>
-373|        </div>
-374|      </div>
-375|      <div data-reveal style="background:#fff; border-radius:20px; padding:clamp(24px,4vw,36px); color:#152238;">
-376|        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:21px; margin-bottom:22px;">Request a free quote</div>
-377|        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;">
-378|          <input placeholder="Your name" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box;" style-focus="border-color:#1B4A8A;">
-379|          <input placeholder="Phone number" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box;" style-focus="border-color:#1B4A8A;">
-380|          <input placeholder="Email" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box; grid-column:1 / -1;" style-focus="border-color:#1B4A8A;">
-381|          <textarea placeholder="What do you need done?" rows="4" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box; grid-column:1 / -1; resize:vertical;" style-focus="border-color:#1B4A8A;"></textarea>
-382|        </div>
-383|        <button onClick="{{ submitQuote }}" style="margin-top:18px; width:100%; background:#F5A623; color:#152238; font-family:'Manrope',sans-serif; font-weight:800; font-size:16px; padding:16px; border:none; border-radius:12px; cursor:pointer; transition:background .25s ease;" style-hover="background:#E79A15;">{{ submitLabel }}</button>
-384|        <div style="font-size:12.5px; color:#8A97AB; margin-top:12px; text-align:center;">No spam, no obligation. <span>We'll get back to you within one working day.</span></div>
-385|      </div>
-386|    </div>
-387|  </div>
-388|
-389|  <!-- ================= FOOTER ================= -->
-390|  <div data-screen-label="Footer" style="background:#0E1829; color:#8A97AB;">
-391|    <div style="max-width:1240px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px; padding:28px 24px; font-size:13.5px;">
-392|      <span>© <span>2026</span> <span>Reed Electrical</span> · Registered in England &amp; Wales, Company No. <span>08765432</span> · NICEIC reg. <span>D602137</span></span>
-<div style="display:flex; gap:24px;">
+
+  <!-- ================= NAV ================= -->
+  <div data-screen-label="Nav" data-navbar style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(12px); border-bottom:1px solid #E4E8EF;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px clamp(16px,3vw,32px);">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:38px; height:38px; border-radius:10px; background:#1B4A8A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Sora',sans-serif; font-weight:800; font-size:17px;">R</div>
+        <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px;">Reed Electrical</span>
+      </div>
+      <div data-nav-links style="display:flex; gap:30px; font-size:15px; font-weight:600;">
+        <a href="#services" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">Services</a>
+        <a href="#about" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">About</a>
+        <a href="#reviews" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">Reviews</a>
+        <a href="#areas" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">Areas</a>
+        <a href="#faq" style="text-decoration:none; color:#4A5A72; padding-bottom:3px; background-image:linear-gradient(#1B4A8A,#1B4A8A); background-size:0% 2px; background-repeat:no-repeat; background-position:0 100%; transition:background-size .3s ease, color .3s ease;" style-hover="background-size:100% 2px; color:#1B4A8A;">FAQ</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <a href="tel:07818064688" style="font-weight:800; font-size:15px; color:#1B4A8A; text-decoration:none;">07818 064688</a>
+        <a data-nav-cta href="#contact" style="background:#F5A623; color:#152238; font-weight:700; padding:12px 22px; border-radius:10px; font-size:15px; text-decoration:none; display:inline-block; white-space:nowrap;" style-hover="background:#E79A15;">Book an electrician</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= HERO ================= -->
+  <div data-screen-label="Hero" style="position:relative; isolation:isolate; max-width:1240px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center; padding:clamp(64px,9vw,96px) 24px clamp(72px,10vw,104px);">
+    <div style="position:absolute; z-index:-1; left:8%; top:6%; width:440px; height:440px; max-width:70vw; border-radius:50%; background:radial-gradient(circle, rgba(27,74,138,.09), transparent 65%); animation:blobDrift 16s ease-in-out infinite alternate; pointer-events:none;"></div>
+    <div style="position:absolute; z-index:-1; right:6%; bottom:0; width:380px; height:380px; max-width:60vw; border-radius:50%; background:radial-gradient(circle, rgba(245,166,35,.10), transparent 65%); animation:blobDrift 13s ease-in-out 1.5s infinite alternate-reverse; pointer-events:none;"></div>
+    <div style="display:inline-flex; align-items:center; gap:8px; background:#E8F0FB; color:#1B4A8A; font-weight:700; font-size:13px; padding:7px 14px; border-radius:999px; margin-bottom:26px; animation:heroPop .7s ease both;"><span>4.9 rated · 40+ local reviews</span> · <span>Aldershot</span></div>
+    <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,7vw,64px); line-height:1.08; letter-spacing:-.02em; margin:0 0 24px; max-width:880px; animation:heroPop .7s ease .08s both;"><span>Trusted electricians in Aldershot</span></h1>
+    <p style="font-size:20px; line-height:1.6; color:#4A5A72; margin:0 0 36px; max-width:620px; animation:heroPop .7s ease .16s both;"><span>Upfront pricing, tidy work and every job guaranteed — your local Aldershot electrician, serving the area for over 20 years.</span></p>
+    <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:center; animation:heroPop .7s ease .24s both;">
+      <a href="#contact" style="background:#1B4A8A; color:#fff; font-weight:700; font-size:17px; padding:16px 30px; border-radius:12px; text-decoration:none; display:inline-block; box-shadow:0 8px 20px rgba(27,74,138,.25); transition:transform .25s ease, background .25s ease;" style-hover="background:#143A6E; transform:translateY(-2px);">Get a free quote</a>
+      <a href="#services" style="border:2px solid #D5DCE7; color:#152238; font-weight:700; font-size:17px; padding:14px 28px; border-radius:12px; text-decoration:none; display:inline-block; transition:border-color .25s ease;" style-hover="border-color:#1B4A8A;">See services</a>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:14px 28px; margin-top:40px; font-size:13.5px; font-weight:700; color:#4A5A72; justify-content:center; animation:heroPop .7s ease .32s both;">
+      <span style="display:flex; align-items:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#F5A623; display:inline-block;"></span>NICEIC approved &amp; fully insured</span>
+      <span style="display:flex; align-items:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#F5A623; display:inline-block;"></span>Same-week booking</span>
+      <span style="display:flex; align-items:center; gap:8px;"><span style="width:7px; height:7px; border-radius:50%; background:#F5A623; display:inline-block;"></span>Workmanship guaranteed on every job</span>
+    </div>
+  </div>
+
+  <!-- ================= CERTIFICATIONS STRIP ================= -->
+  <div data-screen-label="Certifications" style="background:#fff; border-top:1px solid #E4E8EF; border-bottom:1px solid #E4E8EF;">
+    <div data-reveal style="max-width:1240px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 32px; padding:28px 24px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#8A97AB; flex-shrink:0;">Certified &amp; accredited</span>
+      <div style="display:flex; flex-wrap:wrap; gap:14px 20px; flex:1; justify-content:flex-end;">
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-width:150px; height:56px; border-radius:8px; background:#F0F3F8; padding:0 18px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px rgba(21,34,56,.08);">
+          <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:14px;">NICEIC</span>
+          <span style="font-size:10.5px; font-weight:700; color:#6B7A92; letter-spacing:.05em; text-transform:uppercase;">Approved Contractor</span>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-width:150px; height:56px; border-radius:8px; background:#F0F3F8; padding:0 18px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-3px); box-shadow:0 8px 18px rgba(21,34,56,.08);">
+          <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:14px;">Part P</span>
+          <span style="font-size:10.5px; font-weight:700; color:#6B7A92; letter-spacing:.05em; text-transform:uppercase;">Building Regs Certified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SERVICES ================= -->
+  <div id="services" data-screen-label="Services" style="max-width:1240px; margin:0 auto; padding:clamp(64px,9vw,96px) 24px;">
+    <div data-reveal style="max-width:640px; margin-bottom:48px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Services</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); line-height:1.15; letter-spacing:-.02em; margin:0 0 16px; text-wrap:pretty;">Everything electrical, done right</h2>
+      <p style="font-size:17px; line-height:1.6; color:#4A5A72; margin:0;"><span>From a single socket to a full commercial fit-out — one team, one point of contact.</span></p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px;">
+      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">01</div>
+        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Rewiring &amp; upgrades</span></div>
+        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Full and partial rewires, consumer unit upgrades, fault-finding and repairs.</span></div>
+      </div>
+      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">02</div>
+        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>EV charger installation</span></div>
+        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Home and workplace charging points, installed and certified to spec.</span></div>
+      </div>
+      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">03</div>
+        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Lighting &amp; installations</span></div>
+        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Indoor, outdoor and smart lighting — planned, wired and finished cleanly.</span></div>
+      </div>
+      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">04</div>
+        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Extensions &amp; renovation wiring</span></div>
+        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Safe, compliant wiring for home extensions, lofts and renovations, integrated with your existing setup.</span></div>
+      </div>
+      <div data-reveal style="background:#fff; border:1px solid #E4E8EF; border-radius:16px; padding:30px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-4px); box-shadow:0 14px 32px rgba(21,34,56,.08);">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#F5A623; margin-bottom:16px; border-bottom:2px solid #F5A623; display:inline-block; padding-bottom:4px;">05</div>
+        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-bottom:8px;"><span>Consumer units &amp; fault finding</span></div>
+        <div style="color:#4A5A72; font-size:15px; line-height:1.55;"><span>Consumer unit installation, repair and replacement, plus fast fault diagnosis and fixes.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STATS BAND ================= -->
+  <div data-screen-label="Stats" style="background:#1B4A8A; color:#fff;">
+    <div data-reveal style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:32px; padding:64px 24px;">
+      <div style="text-align:center;">
+        <div data-count-to="20" data-suffix="+" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">20+</div>
+        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Years in business</div>
+      </div>
+      <div style="text-align:center;">
+        <div data-count-to="1200" data-suffix="+" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">1,200+</div>
+        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Jobs completed</div>
+      </div>
+      <div style="text-align:center;">
+        <div data-count-to="95" data-suffix="%" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">95%</div>
+        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Repeat &amp; referral clients</div>
+      </div>
+      <div style="text-align:center;">
+        <div data-count-to="3" data-suffix="" style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(38px,5.5vw,52px); letter-spacing:-.02em;">3</div>
+        <div style="font-size:15px; font-weight:600; color:#B9CCE6; margin-top:6px;">Qualified electricians</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ABOUT / WHY US ================= -->
+  <div id="about" data-screen-label="About" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(36px,5vw,64px); padding:clamp(64px,9vw,96px) 24px; align-items:center;">
+    <div data-reveal data-reveal-dir="left" style="border-radius:20px;">
+      <image-slot id="about-image" shape="rounded" radius="20" placeholder="Your team photo goes here when the site goes live" style="width:100%; height:430px;"></image-slot>
+    </div>
+    <div data-reveal data-reveal-dir="right">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Why choose us</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); line-height:1.15; letter-spacing:-.02em; margin:0 0 18px;"><span>A local team you can rely on</span></h2>
+      <p style="font-size:17px; line-height:1.65; color:#4A5A72; margin:0 0 28px;"><span>Reed Electrical is a family-run electrical contractor based in Aldershot. For over 20 years we have built our reputation on tidy workmanship, honest pricing and turning up when we say we will.</span></p>
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div style="display:flex; gap:14px; align-items:flex-start;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#F5A623; margin-top:7px; flex-shrink:0;"></div>
+          <div><strong style="font-size:15.5px;">Upfront, fixed quotes</strong><div style="font-size:14.5px; color:#4A5A72; margin-top:2px;">No hourly surprises — you approve the price before we start.</div></div>
+        </div>
+        <div style="display:flex; gap:14px; align-items:flex-start;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#F5A623; margin-top:7px; flex-shrink:0;"></div>
+          <div><strong style="font-size:15.5px;">Fully qualified &amp; insured</strong><div style="font-size:14.5px; color:#4A5A72; margin-top:2px;">Every job notified and certified under Part P. NICEIC reg. <span>D602137</span>.</div></div>
+        </div>
+        <div style="display:flex; gap:14px; align-items:flex-start;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#F5A623; margin-top:7px; flex-shrink:0;"></div>
+          <div><strong style="font-size:15.5px;">We leave it cleaner than we found it</strong><div style="font-size:14.5px; color:#4A5A72; margin-top:2px;">Dust sheets, tidy cable runs, and a walkthrough before we leave.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <div id="reviews" data-screen-label="Testimonials" style="background:#fff; border-top:1px solid #E4E8EF; border-bottom:1px solid #E4E8EF;">
+    <div style="max-width:1240px; margin:0 auto; padding:clamp(64px,9vw,96px) 24px;">
+      <div data-reveal style="text-align:center; margin-bottom:48px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Reviews</div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); letter-spacing:-.02em; margin:0;">What neighbours say</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px;">
+        <div data-reveal style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:16px; padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#F5A623; font-size:13px; font-weight:700; margin-bottom:14px;">5.0 / 5</div>
+          <p style="font-size:15.5px; line-height:1.65; color:#152238; margin:0 0 20px;">"Reed Electrical rewired our 1930s semi in Ash over a week — tidy, polite, and the price matched the quote exactly."</p>
+          <div style="font-weight:700; font-size:14px;">Sarah P.</div>
+          <div style="font-size:13px; color:#8A97AB;">Ash, Aldershot</div>
+        </div>
+        <div data-reveal style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:16px; padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#F5A623; font-size:13px; font-weight:700; margin-bottom:14px;">5.0 / 5</div>
+          <p style="font-size:15.5px; line-height:1.65; color:#152238; margin:0 0 20px;">"Fitted our home EV charger in Farnborough. Explained everything clearly and left no mess. Would use again."</p>
+          <div style="font-weight:700; font-size:14px;">James T.</div>
+          <div style="font-size:13px; color:#8A97AB;">Farnborough</div>
+        </div>
+        <div data-reveal style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:16px; padding:28px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#F5A623; font-size:13px; font-weight:700; margin-bottom:14px;">5.0 / 5</div>
+          <p style="font-size:15.5px; line-height:1.65; color:#152238; margin:0 0 20px;">"Sorted a consumer-unit fault in our shop before we opened. Fast, professional and fairly priced."</p>
+          <div style="font-weight:700; font-size:14px;">Mo R.</div>
+          <div style="font-size:13px; color:#8A97AB;">Aldershot</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SERVICE AREA ================= -->
+  <div id="areas" data-screen-label="Service area" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(36px,5vw,64px); padding:clamp(64px,9vw,96px) 24px; align-items:center;">
+    <div data-reveal data-reveal-dir="left">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">Coverage</div>
+      <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); line-height:1.15; letter-spacing:-.02em; margin:0 0 18px;">Serving <span>Aldershot</span> and surrounds</h2>
+      <p style="font-size:17px; line-height:1.65; color:#4A5A72; margin:0 0 28px;">Standard call-outs within <span>20 miles</span> of our base — no travel charge inside the core area.</p>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span style="width:16px; height:16px; border-radius:50%; border:2px dashed #F5A623; flex-shrink:0;"></span>
+          <span style="font-size:15px; font-weight:600;">Core area — free call-outs, no travel charge</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span style="width:16px; height:16px; border-radius:50%; border:2px dashed #1B4A8A; flex-shrink:0;"></span>
+          <span style="font-size:15px; font-weight:600;">Extended area — standard call-out rates</span>
+        </div>
+      </div>
+    </div>
+    <div data-reveal data-reveal-dir="right" style="position:relative; height:420px; border-radius:20px; background:#E8F0FB; background-image:radial-gradient(#C9D6E8 2px, transparent 2px); background-size:36px 36px; overflow:hidden;">
+      <div style="position:absolute; left:50%; top:50%; width:360px; height:360px; transform:translate(-50%,-50%); border:2px dashed #1B4A8A; border-radius:50%; opacity:.35;"></div>
+      <div style="position:absolute; left:50%; top:50%; width:200px; height:200px; transform:translate(-50%,-50%); border:2px dashed #F5A623; border-radius:50%; opacity:.55;"></div>
+      <!-- HQ pin -->
+      <div style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:8px; z-index:2;">
+        <div style="position:relative; width:18px; height:18px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#1B4A8A; animation:pinPing 2.6s ease-out infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:#1B4A8A; border:3px solid #fff; box-sizing:border-box;"></div>
+        </div>
+        <div style="background:#152238; color:#fff; padding:5px 12px; border-radius:999px; font-size:12px; font-weight:700; white-space:nowrap;">HQ · <span>Aldershot</span></div>
+      </div>
+      <!-- Town pins — swap the [TOWN_x] labels; reposition via left/top percentages -->
+      <div style="position:absolute; left:17%; top:18%; display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div style="position:relative; width:12px; height:12px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out .4s infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
+        </div>
+        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Farnborough</span>
+      </div>
+      <div style="position:absolute; left:66%; top:12%; display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div style="position:relative; width:12px; height:12px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out .8s infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
+        </div>
+        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Fleet</span>
+      </div>
+      <div style="position:absolute; left:76%; top:56%; display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div style="position:relative; width:12px; height:12px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out 1.2s infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
+        </div>
+        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Farnham</span>
+      </div>
+      <div style="position:absolute; left:16%; top:62%; display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div style="position:relative; width:12px; height:12px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out 1.6s infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
+        </div>
+        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Camberley</span>
+      </div>
+      <div style="position:absolute; left:48%; top:78%; display:flex; flex-direction:column; align-items:center; gap:6px;">
+        <div style="position:relative; width:12px; height:12px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623; animation:pinPing 2.6s ease-out 2s infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:#F5A623;"></div>
+        </div>
+        <span style="background:#fff; border:1px solid #D5DCE7; border-radius:999px; padding:4px 12px; font-size:12px; font-weight:700; white-space:nowrap;">Guildford</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FAQ ================= -->
+  <div id="faq" data-screen-label="FAQ" style="background:#fff; border-top:1px solid #E4E8EF;">
+    <div style="max-width:840px; margin:0 auto; padding:clamp(64px,9vw,96px) 24px;">
+      <div data-reveal style="text-align:center; margin-bottom:44px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#1B4A8A; margin-bottom:14px;">FAQ</div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,4.5vw,40px); letter-spacing:-.02em; margin:0;">Common questions</h2>
+      </div>
+      <div data-reveal style="display:flex; flex-direction:column; gap:12px;">
+        <details style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:14px; padding:20px 24px;">
+          <summary style="display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Do you charge for quotes?<span class="faq-chev" style="color:#1B4A8A; font-size:20px; font-weight:400;">+</span></summary>
+          <p class="faq-a" style="font-size:15.5px; line-height:1.6; color:#4A5A72; margin:14px 0 0;"><span>No — quotes and site visits are free within our 20-mile service area, with no obligation.</span></p>
+        </details>
+        <details style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:14px; padding:20px 24px;">
+          <summary style="display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Are you registered and insured?<span class="faq-chev" style="color:#1B4A8A; font-size:20px; font-weight:400;">+</span></summary>
+          <p class="faq-a" style="font-size:15.5px; line-height:1.6; color:#4A5A72; margin:14px 0 0;"><span>Yes — NICEIC Approved Contractor (reg. D602137), Part P certified, with £5m public liability insurance.</span></p>
+        </details>
+        <details style="background:#F7F8FA; border:1px solid #E4E8EF; border-radius:14px; padding:20px 24px;">
+          <summary style="display:flex; justify-content:space-between; align-items:center; font-family:'Sora',sans-serif; font-weight:700; font-size:17px;">Is your work guaranteed?<span class="faq-chev" style="color:#1B4A8A; font-size:20px; font-weight:400;">+</span></summary>
+          <p class="faq-a" style="font-size:15.5px; line-height:1.6; color:#4A5A72; margin:14px 0 0;"><span>Yes — every installation carries our workmanship guarantee on top of manufacturer warranties.</span></p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CONTACT / CTA ================= -->
+  <div id="contact" data-screen-label="Contact" style="background:#152238; color:#fff;">
+    <div style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(40px,6vw,72px); padding:clamp(64px,9vw,96px) 24px;">
+      <div data-reveal>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#F5A623; margin-bottom:14px;">Get in touch</div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(32px,5vw,44px); line-height:1.12; letter-spacing:-.02em; margin:0 0 18px;">Tell us about the job — we'll quote it free</h2>
+        <p style="font-size:17px; line-height:1.65; color:#B9C4D6; margin:0 0 36px;">We reply within one working day. For emergencies, always call.</p>
+        <div style="display:flex; flex-direction:column; gap:22px; font-size:16px;">
+          <div style="display:flex; gap:16px; align-items:baseline;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Call</span>
+            <a href="tel:07818064688" style="color:#F5A623; font-weight:800; font-size:20px; text-decoration:none;">07818 064688</a>
+          </div>
+          <div style="display:flex; gap:16px; align-items:baseline;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Email</span>
+            <a href="mailto:mail@reedelectrical.info" style="color:#fff; font-weight:600; text-decoration:none;">mail@reedelectrical.info</a>
+          </div>
+          <div style="display:flex; gap:16px; align-items:baseline;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Visit</span>
+            <span style="color:#fff; font-weight:600;">9 Grange Farm Rd, Ash, Aldershot GU12 6SJ</span>
+          </div>
+          <div style="display:flex; gap:16px; align-items:baseline;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8A97AB; width:70px; flex-shrink:0;">Hours</span>
+            <span style="color:#fff; font-weight:600;">Mon–Fri 9:00–17:00</span>
+          </div>
+        </div>
+      </div>
+      <div data-reveal style="background:#fff; border-radius:20px; padding:clamp(24px,4vw,36px); color:#152238;">
+        <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:21px; margin-bottom:22px;">Request a free quote</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;">
+          <input placeholder="Your name" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box;" style-focus="border-color:#1B4A8A;">
+          <input placeholder="Phone number" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box;" style-focus="border-color:#1B4A8A;">
+          <input placeholder="Email" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box; grid-column:1 / -1;" style-focus="border-color:#1B4A8A;">
+          <textarea placeholder="What do you need done?" rows="4" style="font-family:'Manrope',sans-serif; font-size:15px; padding:14px 16px; border:1.5px solid #D5DCE7; border-radius:10px; outline:none; width:100%; box-sizing:border-box; grid-column:1 / -1; resize:vertical;" style-focus="border-color:#1B4A8A;"></textarea>
+        </div>
+        <button onClick="{{ submitQuote }}" style="margin-top:18px; width:100%; background:#F5A623; color:#152238; font-family:'Manrope',sans-serif; font-weight:800; font-size:16px; padding:16px; border:none; border-radius:12px; cursor:pointer; transition:background .25s ease;" style-hover="background:#E79A15;">{{ submitLabel }}</button>
+        <div style="font-size:12.5px; color:#8A97AB; margin-top:12px; text-align:center;">No spam, no obligation. <span>We'll get back to you within one working day.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <div data-screen-label="Footer" style="background:#0E1829; color:#8A97AB;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px; padding:28px 24px; font-size:13.5px;">
+      <span>© <span>2026</span> <span>Reed Electrical</span> · Registered in England &amp; Wales, Company No. <span>08765432</span> · NICEIC reg. <span>D602137</span></span>
+      <div style="display:flex; gap:24px;">
+      </div>
+    </div>
+  </div>
+
 </div>
-397|    </div>
-398|  </div>
-399|
-400|</div>
-401|
-402|</x-dc>
-403|<script type="text/x-dc" data-dc-script data-props="{
-404|  &quot;hidePlaceholderHighlights&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Template&quot; },
-405|  &quot;showEmergencyBar&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; },
-406|  &quot;scrollAnimations&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; }
-407|}">
-408|class Component extends DCLogic {
-409|  state = { submitted: false };
-410|
-411|  renderVals() {
-412|    return {
-413|      rootRef: (el) => { this._root = el; if (el) this._setup(); },
-414|      phHide: String(this.props.hidePlaceholderHighlights ?? false),
-415|
-416|      animOn: String(this.props.scrollAnimations ?? true),
-417|      showEmergency: this.props.showEmergencyBar ?? true,
-418|      submitLabel: this.state.submitted ? 'Request sent ✓ (template stub)' : 'Send my request',
-419|      submitQuote: () => {
-420|        this.setState({ submitted: true });
-421|        clearTimeout(this._t);
-422|        this._t = setTimeout(() => this.setState({ submitted: false }), 3000);
-423|      },
-424|    };
-425|  }
-426|
-427|  componentDidMount() {
-428|    this._setup();
-429|    this._retry = setTimeout(() => this._setup(), 400);
-430|  }
-431|
-432|  componentDidUpdate() {
-433|    this._reapply();
-434|  }
-435|
-436|  _setup() {
-437|    if (!this._root || this._observed) return;
-438|    this._observed = true;
-439|    this._revealed = new WeakSet();
-440|    this._counted = new WeakMap();
-441|
-442|    // Fallback: in hidden/prerendered/screenshot contexts IntersectionObserver may
-443|    // never fire — reveal everything immediately instead of leaving sections hidden.
-444|    if (document.hidden) { this._revealAll(); return; }
-445|    document.addEventListener('visibilitychange', () => { if (document.hidden) this._revealAll(); });
-446|
-447|    // Nav shadow once the page is scrolled
-448|    const nav = this._root.querySelector('[data-navbar]');
-449|    if (nav) {
-450|      const onScroll = () => nav.setAttribute('data-scrolled', String(window.scrollY > 8));
-451|      window.addEventListener('scroll', onScroll, { passive: true });
-452|      onScroll();
-453|    }
-454|
-455|    // Scroll-reveal
-456|    const revealEls = this._root.querySelectorAll('[data-reveal]');
-457|    const io = new IntersectionObserver((entries) => {
-458|      // Stagger elements that enter the viewport together
-459|      let i = 0;
-460|      entries.forEach((e) => {
-461|        if (e.isIntersecting) {
-462|          const el = e.target;
-463|          const delay = i * 90;
-464|          i += 1;
-465|          el.style.transitionDelay = delay + 'ms';
-466|          this._revealed.add(el);
-467|          el.setAttribute('data-reveal', 'on');
-468|          io.unobserve(el);
-469|          setTimeout(() => { el.style.transitionDelay = ''; }, 900 + delay);
-470|        }
-471|      });
-472|    }, { threshold: 0.15 });
-473|    revealEls.forEach((el) => io.observe(el));
-474|
-475|    // Count-up stats
-476|    const counters = this._root.querySelectorAll('[data-count-to]');
-477|    const cio = new IntersectionObserver((entries) => {
-478|      entries.forEach((e) => {
-479|        if (!e.isIntersecting) return;
-480|        cio.unobserve(e.target);
-481|        const el = e.target;
-482|        const target = parseFloat(el.getAttribute('data-count-to'));
-483|        const suffix = el.getAttribute('data-suffix') || '';
-484|        this._counted.set(el, Math.round(target).toLocaleString() + suffix);
-485|        const t0 = performance.now();
-486|        const dur = 1600;
-487|        const tick = (now) => {
-488|          const p = Math.min(1, (now - t0) / dur);
-489|          const eased = 1 - Math.pow(1 - p, 3);
-490|          el.textContent = Math.round(target * eased).toLocaleString() + suffix;
-491|          if (p < 1) requestAnimationFrame(tick);
-492|        };
-493|        requestAnimationFrame(tick);
-494|      });
-495|    }, { threshold: 0.4 });
-496|    counters.forEach((el) => cio.observe(el));
-497|  }
-498|
-499|  // Force everything to its revealed end-state (used when observers can't fire)
-500|  _revealAll() {
-501|
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;hidePlaceholderHighlights&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Template&quot; },
+  &quot;showEmergencyBar&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; },
+  &quot;scrollAnimations&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; }
+}">
+class Component extends DCLogic {
+  state = { submitted: false };
+
+  renderVals() {
+    return {
+      rootRef: (el) => { this._root = el; if (el) this._setup(); },
+      phHide: String(this.props.hidePlaceholderHighlights ?? false),
+
+      animOn: String(this.props.scrollAnimations ?? true),
+      showEmergency: this.props.showEmergencyBar ?? true,
+      submitLabel: this.state.submitted ? 'Request sent ✓ (template stub)' : 'Send my request',
+      submitQuote: () => {
+        this.setState({ submitted: true });
+        clearTimeout(this._t);
+        this._t = setTimeout(() => this.setState({ submitted: false }), 3000);
+      },
+    };
+  }
+
+  componentDidMount() {
+    this._setup();
+    this._retry = setTimeout(() => this._setup(), 400);
+  }
+
+  componentDidUpdate() {
+    this._reapply();
+  }
+
+  _setup() {
+    if (!this._root || this._observed) return;
+    this._observed = true;
+    this._revealed = new WeakSet();
+    this._counted = new WeakMap();
+
+    // Fallback: in hidden/prerendered/screenshot contexts IntersectionObserver may
+    // never fire — reveal everything immediately instead of leaving sections hidden.
+    if (document.hidden) { this._revealAll(); return; }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) this._revealAll(); });
+
+    // Nav shadow once the page is scrolled
+    const nav = this._root.querySelector('[data-navbar]');
+    if (nav) {
+      const onScroll = () => nav.setAttribute('data-scrolled', String(window.scrollY > 8));
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Scroll-reveal
+    const revealEls = this._root.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver((entries) => {
+      // Stagger elements that enter the viewport together
+      let i = 0;
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const delay = i * 90;
+          i += 1;
+          el.style.transitionDelay = delay + 'ms';
+          this._revealed.add(el);
+          el.setAttribute('data-reveal', 'on');
+          io.unobserve(el);
+          setTimeout(() => { el.style.transitionDelay = ''; }, 900 + delay);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach((el) => io.observe(el));
+
+    // Count-up stats
+    const counters = this._root.querySelectorAll('[data-count-to]');
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        cio.unobserve(e.target);
+        const el = e.target;
+        const target = parseFloat(el.getAttribute('data-count-to'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        this._counted.set(el, Math.round(target).toLocaleString() + suffix);
+        const t0 = performance.now();
+        const dur = 1600;
+        const tick = (now) => {
+          const p = Math.min(1, (now - t0) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach((el) => cio.observe(el));
+  }
+
+  // Force everything to its revealed end-state (used when observers can't fire)
+  _revealAll() {
+    if (!this._root) return;
+    this._root.querySelectorAll('[data-reveal]').forEach((el) => {
+      this._revealed.add(el);
+      el.setAttribute('data-reveal', 'on');
+    });
+    this._root.querySelectorAll('[data-count-to]').forEach((el) => {
+      const target = parseFloat(el.getAttribute('data-count-to'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const txt = Math.round(target).toLocaleString() + suffix;
+      this._counted.set(el, txt);
+      el.textContent = txt;
+    });
+  }
+
+  // Re-apply reveal/counter end-states after any React re-render
+  _reapply() {
+    if (!this._root) return;
+    this._root.querySelectorAll('[data-reveal]').forEach((el) => {
+      if (this._revealed && this._revealed.has(el)) el.setAttribute('data-reveal', 'on');
+    });
+    this._root.querySelectorAll('[data-count-to]').forEach((el) => {
+      if (this._counted && this._counted.has(el)) el.textContent = this._counted.get(el);
+    });
+  }
+}
+
+</script>
+</body>
+</html>
